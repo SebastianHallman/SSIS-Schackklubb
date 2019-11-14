@@ -1,3 +1,13 @@
 .right{
 	text-align: right;
 }
+
+form {
+	display: inline-block;
+	
+}
+
+.login {
+	text-align: center;
+	
+}
