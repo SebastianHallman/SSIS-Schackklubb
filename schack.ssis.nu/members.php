@@ -1,4 +1,10 @@
 <!DOCTYPE HTML>
+<?php include 'inc/db.php';
+			include 'inc/session.php';
+		if (!isset($_SESSION['isAdmin'])) {
+			$_SESSION['isAdmin'] = 0;
+		}
+?>
 <html>
 <head>
 <meta charset="utf-8">
@@ -6,7 +12,15 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link rel="stylesheet" href="" type="text/css" />
 </head>
-	
+
+<?php
+$query = "SELECT * FROM members";
+
+$result = mysqli_query($conn, $query);
+
+$medlemmar = mysqlI_fetch_all($result, MYSQLI_ASSOC);
+
+ ?>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">SSIS Schackklubb</a>
@@ -34,6 +48,43 @@
   </div>
 </div>
 <div class="text-center container">
+	<?php
+	$form = '<div class="text-center container">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary mb-5" data-toggle="modal" data-target="#exampleModal">
+  Lägg till medlem
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Lägg till medlem</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="addMember.php">
+        	<p>Skol-alias</p>
+        	<input type="text" name="skol"/>
+        	<p class="mt-2">Lichess-alias</p>
+        	<input type="text" name="lichess"/>
+        	<br>
+        	<input type="submit" value="Lägg till medlem" class="btn btn-primary mt-4"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>';
+if ($_SESSION['isAdmin'] == 1) {
+	echo "$form";
+} ?>
 	<table class="table">
 		<thead>
 			<tr>
@@ -41,10 +92,12 @@
 				<th scope="col">Lichess-alias</th>
 			</tr>
 		</thead>
-		<tr>
-			<td>17seha</td>
-			<td>D1sabl3d</td>
-		</tr>
+		<?php foreach ($medlemmar as $medlem) :  ?>
+			<tr>
+				<td><?php echo $medlem['skol-alias']; ?></td>
+				<td><?php echo $medlem['lichess-alias']; ?></td>
+			</tr>
+		<?php endforeach ?>
 </div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
