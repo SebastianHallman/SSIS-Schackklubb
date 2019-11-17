@@ -14,11 +14,11 @@
 </head>
 
 <?php
-$query = "SELECT * FROM members";
+$query = "SELECT * FROM tournaments";
 
 $result = mysqli_query($conn, $query);
 
-$medlemmar = mysqlI_fetch_all($result, MYSQLI_ASSOC);
+$turneringar = mysqlI_fetch_all($result, MYSQLI_ASSOC);
 
  ?>
 <body>
@@ -33,33 +33,41 @@ $medlemmar = mysqlI_fetch_all($result, MYSQLI_ASSOC);
         <a class="nav-link" href="index.php">Hem <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#">Medlemmar</a>
+        <a class="nav-link" href="members.php">Medlemmar</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="tournaments.php">Turneringar</a>
+        <a class="nav-link active" href="#">.Turneringar</a>
       </li>
     </ul>
   </div>
 </nav>
 <div class="jumbotron jumbotron-fluid">
   <div class="container text-center">
-    <h1 class="display-4">Medlemmar</h1>
-    <p class="lead">Se vilka som är med i skolans schackklubb!</p>
+    <h1 class="display-4">Turneringar</h1>
+    <p class="lead">Se alla turneringar vi har på gång!</p>
   </div>
 </div>
 <div class="text-center container">
-	
 	<table class="table">
 		<thead>
 			<tr>
-				<th scope="col">Skol-alias</th>
-				<th scope="col">Lichess-alias</th>
+				<th scope="col">Namn</th>
+				<th scope="col">Lösenord</th>
+				<th scope="col">Format</th>
+				<th scope="col">Start</th>
+				<th scope="col">Vinnare</th>
+				<th scope="col">Delta</th>
 			</tr>
 		</thead>
-		<?php foreach ($medlemmar as $medlem) :  ?>
+		<?php foreach ($turneringar as $turnering) :  ?>
 			<tr>
-				<td><?php echo $medlem['skol_alias']; ?></td>
-				<td><?php echo $medlem['lichess_alias']; ?></td>
+				<td><?php echo $turnering['namn']; ?></td>
+				<td><?php echo $turnering['losenord']; ?></td>
+				<td><?php echo $turnering['format']; ?></td>
+				<td><?php echo $turnering['start']; ?></td>
+				<td><?php echo $turnering['vinnare']; ?></td>
+					<td><a href=<?php echo '"'.urldecode($turnering['url']).'"'; ?>><button class="btn btn-success">Delta</button></a></td>
+			
 			</tr>
 		<?php endforeach ?>
 </div>

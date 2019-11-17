@@ -22,7 +22,7 @@
         <a class="nav-link" href="members.php">Medlemmar</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">.Turneringar</a>
+        <a class="nav-link" href="tournaments.php">Turneringar</a>
       </li>
     </ul>
   </div>

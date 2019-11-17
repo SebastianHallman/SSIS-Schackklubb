@@ -19,7 +19,7 @@ $skol = mysqli_real_escape_string(mysqli_connect($host, $user, $password, $datab
 $lichess = mysqli_real_escape_string(mysqli_connect($host, $user, $password, $database), $lichess);
 
 
-mysqli_query($conn, "INSERT INTO members (`skol-alias`, `lichess-alias`)
+mysqli_query($conn, "INSERT INTO members (`skol_alias`, `lichess_alias`)
                      VALUES ('$skol', '$lichess')") or die(mysqli_error($conn));
 header('Location: members.php');
 
